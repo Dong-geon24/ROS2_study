@@ -1,0 +1,26 @@
+running develop
+running egg_info
+creating construct1.egg-info
+writing construct1.egg-info/PKG-INFO
+writing dependency_links to construct1.egg-info/dependency_links.txt
+writing entry points to construct1.egg-info/entry_points.txt
+writing requirements to construct1.egg-info/requires.txt
+writing top-level names to construct1.egg-info/top_level.txt
+writing manifest file 'construct1.egg-info/SOURCES.txt'
+reading manifest file 'construct1.egg-info/SOURCES.txt'
+writing manifest file 'construct1.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/arclab/ros2_ws/src/construct1/install/construct1/lib/python3.10/site-packages/construct1.egg-link (link to .)
+Installing bye script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+Installing hello script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+Installing node_test1 script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+Installing node_test2 script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+Installing test1_long script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+
+Installed /home/arclab/ros2_ws/src/construct1/build/construct1
+running symlink_data
+creating /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index
+creating /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index/resource_index
+creating /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index/resource_index/packages
+symbolically linking /home/arclab/ros2_ws/src/construct1/build/construct1/resource/construct1 -> /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index/resource_index/packages
+symbolically linking /home/arclab/ros2_ws/src/construct1/build/construct1/package.xml -> /home/arclab/ros2_ws/src/construct1/install/construct1/share/construct1

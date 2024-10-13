@@ -1,0 +1,7 @@
+[console_scripts]
+bye = construct1.test1:main_shutdown
+hello = construct1.test1:main
+node_test1 = construct1.test_node:main
+node_test2 = construct1.test_node:main2
+test1_long = construct1.test1_long:main
+

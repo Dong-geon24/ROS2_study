@@ -1,0 +1,28 @@
+[0.333s] Invoking command in '/home/arclab/ros2_ws/src/construct1/build/construct1': PYTHONPATH=/home/arclab/ros2_ws/src/construct1/build/construct1/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arclab/ros2_ws/src/construct1/install/construct1/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arclab/ros2_ws/src/construct1/build/construct1/build --no-deps symlink_data
+[0.491s] running develop
+[0.590s] running egg_info
+[0.591s] creating construct1.egg-info
+[0.591s] writing construct1.egg-info/PKG-INFO
+[0.591s] writing dependency_links to construct1.egg-info/dependency_links.txt
+[0.591s] writing entry points to construct1.egg-info/entry_points.txt
+[0.591s] writing requirements to construct1.egg-info/requires.txt
+[0.591s] writing top-level names to construct1.egg-info/top_level.txt
+[0.591s] writing manifest file 'construct1.egg-info/SOURCES.txt'
+[0.592s] reading manifest file 'construct1.egg-info/SOURCES.txt'
+[0.592s] writing manifest file 'construct1.egg-info/SOURCES.txt'
+[0.593s] running build_ext
+[0.593s] Creating /home/arclab/ros2_ws/src/construct1/install/construct1/lib/python3.10/site-packages/construct1.egg-link (link to .)
+[0.593s] Installing bye script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+[0.593s] Installing hello script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+[0.593s] Installing node_test1 script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+[0.593s] Installing node_test2 script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+[0.593s] Installing test1_long script to /home/arclab/ros2_ws/src/construct1/install/construct1/lib/construct1
+[0.593s] 
+[0.593s] Installed /home/arclab/ros2_ws/src/construct1/build/construct1
+[0.593s] running symlink_data
+[0.594s] creating /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index
+[0.594s] creating /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index/resource_index
+[0.594s] creating /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index/resource_index/packages
+[0.594s] symbolically linking /home/arclab/ros2_ws/src/construct1/build/construct1/resource/construct1 -> /home/arclab/ros2_ws/src/construct1/install/construct1/share/ament_index/resource_index/packages
+[0.594s] symbolically linking /home/arclab/ros2_ws/src/construct1/build/construct1/package.xml -> /home/arclab/ros2_ws/src/construct1/install/construct1/share/construct1
+[0.607s] Invoked command in '/home/arclab/ros2_ws/src/construct1/build/construct1' returned '0': PYTHONPATH=/home/arclab/ros2_ws/src/construct1/build/construct1/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arclab/ros2_ws/src/construct1/install/construct1/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arclab/ros2_ws/src/construct1/build/construct1/build --no-deps symlink_data

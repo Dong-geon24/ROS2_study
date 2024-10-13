@@ -18,7 +18,7 @@ from ros_study_msgs.action import ArithmeticChecker
 from ros_study_msgs.msg import ArithmeticArgument
 from ros_study_msgs.srv import ArithmeticOperator
 from rclpy.action import ActionServer
-from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.callback_groups import ReentrantCallbackGroup #콜백을 동시에 받음
 from rclpy.node import Node
 from rclpy.qos import QoSDurabilityPolicy
 from rclpy.qos import QoSHistoryPolicy
