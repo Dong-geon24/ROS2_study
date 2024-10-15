@@ -23,6 +23,7 @@ setup(
             'sub_obs_det = construct_turtlebot3_tasks.subscriber_obstacle_detector:main ',
             'move_rover = construct_turtlebot3_tasks.publish_bot_move:main',
             'plant_detector = construct_turtlebot3_tasks.plant_detector_node:main',
+            'plant_detector2 = construct_turtlebot3_tasks.plant_detector_node2:main',
             'autonomous_drive = construct_turtlebot3_tasks.autonomous_exploration:main'
 
         ],
