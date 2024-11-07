@@ -1,20 +1,29 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import Point
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
+from shapely.geometry import Polygon, Point as ShapelyPoint
 
 class ImageSubscriber(Node):
     def __init__(self):
         super().__init__('image_subscriber')
-        self.subscription = self.create_subscription(
+        self.image_subscription = self.create_subscription(
             Image,
             'processed_image',
             self.listener_callback,
             10)
+        self.coord_subscription = self.create_subscription(
+            Point,
+            'car_coordinates',
+            self.coord_callback,10)
         self.bridge = CvBridge()
-        self.coordinates = []
+        self.coordinates = [] #폴리곤 좌표 리스트
+        self.car_center = None #차량 중심좌표 저장 변수
+
+
         cv2.namedWindow("Processed Image")
         cv2.setMouseCallback("Processed Image", self.get_coordinates)
 
@@ -36,10 +45,26 @@ class ImageSubscriber(Node):
             pts = np.array(self.coordinates, np.int32)
             pts = pts.reshape((-1, 1, 2))
             cv2.polylines(cv_image, [pts], isClosed=True, color=(0, 255, 0), thickness=2)
+            polygon = Polygon(self.coordinates)
+
+            if self.car_center:
+                center_x, center_y = int(self.car_center[0]),int(self.car_center[1])
+                car_point = ShapelyPoint(center_x,center_y)
+                cv2.circle(cv_image,(center_x,center_y), 5, (0, 0, 255), -1) 
+                if polygon.contains(car_point):
+                    self.get_logger().info("car_inside")
+                    cv2.putText(cv_image, "car_inside",(10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
+                else:
+                    self.get_logger().info("car_outside")
+                    cv2.putText(cv_image, "car_outside",(10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
         cv2.imshow("Processed Image", cv_image)
         cv2.waitKey(1)
 
+    def coord_callback(self, msg):
+        self.car_center = (msg.x, msg.y)
+        print(f"Received car center coordinates: ({msg.x}, {msg.y})")
+        
 def main(args=None):
     rclpy.init(args=args)
     node = ImageSubscriber()

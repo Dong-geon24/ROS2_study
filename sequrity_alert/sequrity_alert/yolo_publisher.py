@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import Point
 from cv_bridge import CvBridge
 from ultralytics import YOLO
 import cv2
@@ -9,12 +10,13 @@ import threading
 import time
 import os
 import math
-from shapely.geometry import Polygon
+
 
 class YoloPublisher(Node):
     def __init__(self):
         super().__init__('yolo_publisher')
-        self.publisher_ = self.create_publisher(Image, 'processed_image', 10)
+        self.image_publisher_ = self.create_publisher(Image, 'processed_image', 10)
+        self.coord_publisher_ = self.create_publisher(Point, 'car_coordinates',10)
         self.bridge = CvBridge()
         self.model = YOLO('/home/donggeonyoon/ros2_ws/src/ROS2_study/best.pt')
         self.coordinates = []
@@ -22,7 +24,7 @@ class YoloPublisher(Node):
         os.makedirs(self.output_dir, exist_ok=True)
         
         # Video capture setup
-        self.cap = cv2.VideoCapture('/dev/video0')  # Adjust this to your camera source
+        self.cap = cv2.VideoCapture('/dev/video2')  # Adjust this to your camera source
         self.cap.set(3, 640)
         self.cap.set(4, 480)
         
@@ -71,12 +73,18 @@ class YoloPublisher(Node):
                         cv2.rectangle(frame_to_process, (x1, y1), (x2, y2), (0, 0, 255), 2)
                         cv2.putText(frame_to_process, f"{self.classNames[cls]}: {confidence}", (x1, y1),
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-                        
+                        cls = int(box.cls[0])
+                        if self.classNames[cls] == "car":
+                            car_x = (x1 + x2) /2  
+                            car_y = (y1 + y2) /2
+                            car_position = Point(x=car_x,y=car_y,z=0.0)
+                            self.coord_publisher_.publish(car_position)
+                            print(f"Car center coordinates: ({car_x}, {car_y})")
                 
 
                 # Update processed frame
                 with self.lock:
-                    cv2.rectangle(frame_to_process, (100,100), (200,200), color, thickness)
+                    # cv2.rectangle(frame_to_process, (100,100), (200,200), color, thickness)
                     self.processed_frame = frame_to_process
 
             self.frame_count += 1
@@ -87,7 +95,7 @@ class YoloPublisher(Node):
         if self.processed_frame is not None:
             with self.lock:
                 ros_image = self.bridge.cv2_to_imgmsg(self.processed_frame, encoding="bgr8")
-            self.publisher_.publish(ros_image)
+            self.image_publisher_.publish(ros_image)
 
     def destroy_node(self):
         self.cap.release()
