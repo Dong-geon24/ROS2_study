@@ -24,7 +24,7 @@ class YoloPublisher(Node):
         os.makedirs(self.output_dir, exist_ok=True)
         
         # Video capture setup
-        self.cap = cv2.VideoCapture('/dev/video2')  # Adjust this to your camera source
+        self.cap = cv2.VideoCapture('/dev/video0')  # Adjust this to your camera source
         self.cap.set(3, 640)
         self.cap.set(4, 480)
         

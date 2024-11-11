@@ -23,7 +23,9 @@ setup(
             'img_pub = sequrity_alert.image_publisher:main',
             'img_sub = sequrity_alert.image_subscriber:main',
             'yolo_pub = sequrity_alert.yolo_publisher:main',
-            'yolo_sub = sequrity_alert.yolo_sub:main'
+            'yolo_sub = sequrity_alert.yolo_sub:main',
+            'zone_req = sequrity_alert.zone_request_srv:main',
+            'zone_get = sequrity_alert.test_robot_req_sub:main'
         ],
     },
 )

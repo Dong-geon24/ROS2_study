@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
+from std_msgs.msg import String
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
@@ -19,6 +20,7 @@ class ImageSubscriber(Node):
             Point,
             'car_coordinates',
             self.coord_callback,10)
+        self.status_publisher = self.create_publisher(String,'zone_status',10)
         self.bridge = CvBridge()
         self.coordinates = [] #폴리곤 좌표 리스트
         self.car_center = None #차량 중심좌표 저장 변수
@@ -40,6 +42,7 @@ class ImageSubscriber(Node):
 
     def listener_callback(self, msg):
         cv_image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
+        status_msg = String()
 
         if len(self.coordinates) == 4:
             pts = np.array(self.coordinates, np.int32)
@@ -52,9 +55,15 @@ class ImageSubscriber(Node):
                 car_point = ShapelyPoint(center_x,center_y)
                 cv2.circle(cv_image,(center_x,center_y), 5, (0, 0, 255), -1) 
                 if polygon.contains(car_point):
+                    #데이터 송신부
+                    status_msg.data = "inside"
+                    self.status_publisher.publish(status_msg)
+                    #터미널 - 화면에 출력부
                     self.get_logger().info("car_inside")
                     cv2.putText(cv_image, "car_inside",(10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                 else:
+                    status_msg.data = "outside"
+                    self.status_publisher.publish(status_msg)
                     self.get_logger().info("car_outside")
                     cv2.putText(cv_image, "car_outside",(10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
@@ -64,6 +73,7 @@ class ImageSubscriber(Node):
     def coord_callback(self, msg):
         self.car_center = (msg.x, msg.y)
         print(f"Received car center coordinates: ({msg.x}, {msg.y})")
+
         
 def main(args=None):
     rclpy.init(args=args)
